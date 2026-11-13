@@ -75,7 +75,7 @@ export const SKILL_MD = [
     "",
     "## Review what agents did",
     "",
-    "1. Call sessions_list, then session_review on the risky ones. Findings A01-A13 are facts; report them as facts.",
+    "1. Call sessions_list, then session_review on the risky ones. Findings A01-A14 are facts; report them as facts.",
     "2. Grade a session with session_grade on the rubric (safety, instructions, verification, efficiency, scope), citing step numbers. Grades are your judgment and are labelled that way.",
     "",
     "## Check the AI setup",

@@ -1,5 +1,6 @@
 import { findClaudeImports } from "./core/claudeImports.js";
 import { handoffPrompt } from "./core/handoff.js";
+import { instructionRisks } from "./core/risks.js";
 import { isSecretLikeDirName, isSecretLikeFileName, redactLines } from "./core/secrets.js";
 import { h, plural, replace, route } from "./dom.js";
 import { codeBlock } from "./workspace.js";
@@ -134,6 +135,8 @@ function check(sources, known) {
             if (claude)
                 add({ checkId: "D08", severity: "info", message: `By default Claude Code reads CLAUDE.md instead of AGENTS.md here (\`${claude.relPath}\` applies). Codex and Cursor still read this file.`, relPath: s.relPath, line: 1 });
         }
+        for (const r of instructionRisks(s.lines))
+            add({ checkId: r.checkId, severity: r.severity, message: r.message, relPath: s.relPath, line: r.line });
         if (s.redacted.length)
             add({ checkId: "D12", severity: "warn", message: `${plural(s.redacted.length, "line")} contain secret-like text (masked below). Every assistant that reads this file sees the original.`, relPath: s.relPath, line: s.redacted[0] ?? 1 });
     }

@@ -30,7 +30,7 @@ projects_list, workspace_status, sources_freshness, sources_scan, sources_list, 
 3. findings_submit for POSSIBLE issues, always with exact quoted evidence.
 4. change_propose for fixes. Never edit instruction files directly.
 5. Tell the user to run `npx agentsol review <proposalId>` in their own terminal.
-6. sessions_list and session_review report what agents did (checks A01-A13, facts). session_grade stores your rubric grade (safety, instructions, verification, efficiency, scope; 1-5 each), citing real step numbers. It is labelled assistant judgment.
+6. sessions_list and session_review report what agents did (checks A01-A14, facts). session_grade stores your rubric grade (safety, instructions, verification, efficiency, scope; 1-5 each), citing real step numbers. It is labelled assistant judgment.
 7. setup_audit reports AI app settings (checks C01-C10): plaintext secrets, unpinned or missing MCP servers, permissions that skip confirmation, hooks. Explain; never change settings.
 8. Session and setup tools return derived facts only, never transcript text, tool output or secret values. Over MCP, only sessions inside registered projects are visible.
 
