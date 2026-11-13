@@ -18,7 +18,7 @@ const DOC_URLS = new Set([
 export function docHref(url) {
     return DOC_URLS.has(url) ? brand(url) : null;
 }
-const ATTR = /^(aria-[a-z]+|data-[a-z-]+|role|tabindex|type|for|title|name|value|placeholder|autocomplete|spellcheck|lang|id|class|inputmode|aria-controls)$/;
+const ATTR = /^(aria-[a-z]+|data-[a-z-]+|role|tabindex|type|for|title|name|value|placeholder|autocomplete|spellcheck|lang|id|class|inputmode|aria-controls|webkitdirectory|multiple|accept|rows)$/;
 export function h(tag, props = {}, ...children) {
     const el = document.createElement(tag);
     if (props.class)

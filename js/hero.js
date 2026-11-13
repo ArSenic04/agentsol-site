@@ -1,39 +1,67 @@
-import { h, svg } from "./dom.js";
-/**
- * The hero diagram: instruction files flow into Agentsol, which keeps line-level evidence;
- * your assistant reads and cites over MCP; every change ends with you. Solid lines are what
- * automated tests exercise today; the dashed assistant link is the intended client set,
- * not yet validated. All geometry is a code constant. Motion is a slow dash drift and one
- * orbiting dot, both removed under prefers-reduced-motion.
- */
-const W = 450;
-const CORE = { x: 225, y: 204, r: 42 };
-const CHAR = 8.2; // approximate width of one 14px monospace character in viewBox units
-const SOURCES = [
-    { label: "AGENTS.md", x: 58, y: 68 },
-    { label: "CLAUDE.md", x: 162, y: 34 },
-    { label: "api/AGENTS.md", x: 288, y: 34 },
-    { label: "SKILL.md", x: 400, y: 68 },
+import { h } from "./dom.js";
+const ICON = { user: "›", call: "⏺", ok: "✓", warn: "!", poss: "?", wait: "⏸" };
+const SESSION = [
+    ["user", "Audit the agent instructions in this repo."],
+    ["call", "sources_scan", "paper-lantern-demo"],
+    ["ok", "5 instruction files read · CLAUDE.local.md and .env.local skipped"],
+    ["call", "findings_list"],
+    ["warn", "CLAUDE.md:4  @docs/style-guide.md does not exist"],
+    ["warn", "AGENTS.md:5  secret-like text, masked before I saw it"],
+    ["warn", "skills/changelog/SKILL.md  description is missing"],
+    ["call", "source_read", "AGENTS.md, services/api/AGENTS.md"],
+    ["poss", "Possible: root says npm, services/api says pnpm (both lines quoted)"],
+    ["call", "change_propose", "AGENTS.md:3"],
+    ["ok", "Diff stored. No file was changed."],
+    ["wait", "Your turn: npx agentsol review <proposalId>"],
 ];
-function pill(label, x, y) {
-    const w = Math.round(label.length * CHAR + 24);
-    return svg("g", { class: "g-source" }, svg("rect", { x: x - w / 2, y: y - 15, width: w, height: 30, rx: 15 }), svg("text", { x, y: y + 1, "text-anchor": "middle", "dominant-baseline": "middle", class: "g-mono" }, label));
-}
-function box(cls, x, y, title, sub) {
-    const w = 160;
-    return svg("g", { class: cls }, svg("rect", { x: x - w / 2, y: y - 26, width: w, height: 52, rx: 14 }), svg("text", { x, y: y - 6, "text-anchor": "middle", "dominant-baseline": "middle", class: "g-title" }, title), svg("text", { x, y: y + 13, "text-anchor": "middle", "dominant-baseline": "middle", class: "g-sub" }, sub));
+function line([kind, text, arg]) {
+    return h("li", { class: `term-line t-${kind}` }, h("span", { class: "t-ico" }, ICON[kind]), h("span", { class: kind === "wait" ? "t-cursor" : "" }, text, arg ? h("span", { class: "t-arg" }, ` (${arg})`) : null));
 }
 export function heroDiagram() {
-    const edges = SOURCES.map((s) => {
-        const sy = s.y + 15;
-        const ty = CORE.y - CORE.r - 4;
-        const mid = (sy + ty) / 2;
-        const d = `M${s.x} ${sy} C ${s.x} ${mid + 20}, ${CORE.x} ${mid - 10}, ${CORE.x} ${ty}`;
-        // A solid base line (tested path) with a slow dotted drift on top showing the direction of reading.
-        return svg("g", {}, svg("path", { class: "g-edge g-read", d }), svg("path", { class: "g-edge g-flow", d }));
-    });
-    const assistant = { x: 100, y: 346 };
-    const person = { x: 350, y: 346 };
-    const art = svg("svg", { viewBox: `0 0 ${W} 384`, class: "g", "aria-hidden": "true", focusable: "false", preserveAspectRatio: "xMidYMid meet" }, svg("g", { class: "g-edges" }, ...edges), svg("path", { class: "g-edge g-assist", d: `M${CORE.x - 30} ${CORE.y + 30} C ${CORE.x - 50} ${CORE.y + 60}, ${assistant.x + 50} ${assistant.y - 80}, ${assistant.x + 50} ${assistant.y - 28}` }), svg("path", { class: "g-edge g-person", d: `M${CORE.x + 30} ${CORE.y + 30} C ${CORE.x + 50} ${CORE.y + 60}, ${person.x - 50} ${person.y - 80}, ${person.x - 50} ${person.y - 28}` }), svg("text", { x: assistant.x + 30, y: assistant.y - 44, "text-anchor": "end", class: "g-edge-label" }, "reads · cites lines"), svg("text", { x: person.x - 30, y: person.y - 44, "text-anchor": "start", class: "g-edge-label" }, "diff waits for you"), ...SOURCES.map((s) => pill(s.label, s.x, s.y)), svg("circle", { class: "g-orbit", cx: CORE.x, cy: CORE.y, r: CORE.r + 20 }), svg("g", { class: "g-spin" }, svg("circle", { class: "g-orbit-dot", cx: CORE.x + CORE.r + 20, cy: CORE.y, r: 4 })), svg("circle", { class: "g-core", cx: CORE.x, cy: CORE.y, r: CORE.r }), svg("text", { x: CORE.x, y: CORE.y - 5, "text-anchor": "middle", "dominant-baseline": "middle", class: "g-core-title" }, "Agentsol"), svg("text", { x: CORE.x, y: CORE.y + 14, "text-anchor": "middle", "dominant-baseline": "middle", class: "g-core-sub" }, "evidence"), box("g-assistant", assistant.x, assistant.y, "Your assistant", "over MCP"), box("g-human", person.x, person.y, "You approve", "in your terminal"));
-    return h("figure", { class: "hero-art" }, h("div", { class: "hero-art-frame" }, art), h("figcaption", { class: "legend" }, h("span", { class: "sr-only" }, "Diagram: instruction files such as AGENTS.md, CLAUDE.md and SKILL.md feed Agentsol, which keeps line-level evidence. Your assistant reads and cites those lines over MCP. Every change waits for you to approve in your terminal. "), h("span", { class: "legend-item" }, h("span", { class: "swatch swatch-solid", attrs: { "aria-hidden": "true" } }), "Exercised by automated tests today"), h("span", { class: "legend-item" }, h("span", { class: "swatch swatch-dashed", attrs: { "aria-hidden": "true" } }), "Assistant apps it is built for (Claude Code, Codex, Cursor), not yet validated")));
+    return h("figure", { class: "hero-art" }, h("div", { class: "term", attrs: { "aria-hidden": "true" } }, h("div", { class: "term-bar" }, h("span", { class: "term-dot" }), h("span", { class: "term-dot" }), h("span", { class: "term-dot" }), h("span", { class: "term-title" }, "your assistant + agentsol mcp")), h("ol", { class: "term-body" }, ...SESSION.map(line))), h("figcaption", { class: "legend" }, h("span", { class: "sr-only" }, "Illustration of an assistant session: your assistant scans the project through Agentsol, lists findings such as a missing import and a masked secret, quotes two conflicting lines as a possible issue, and stores a proposed diff. The change waits for you to approve in your own terminal. "), h("span", { class: "legend-item" }, h("span", { class: "swatch", attrs: { "aria-hidden": "true" } }), "Illustrative session: real tool names and synthetic-demo results, exercised by automated tests today"), h("span", { class: "legend-item" }, h("span", { class: "swatch swatch-dashed", attrs: { "aria-hidden": "true" } }), "Assistant apps connect through their standard MCP config and are not yet validated")));
+}
+const BANNER = [
+    " █████╗  ██████╗ ███████╗███╗   ██╗████████╗███████╗ ██████╗ ██╗     ",
+    "██╔══██╗██╔════╝ ██╔════╝████╗  ██║╚══██╔══╝██╔════╝██╔═══██╗██║     ",
+    "███████║██║  ███╗█████╗  ██╔██╗ ██║   ██║   ███████╗██║   ██║██║     ",
+    "██╔══██║██║   ██║██╔══╝  ██║╚██╗██║   ██║   ╚════██║██║   ██║██║     ",
+    "██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   ███████║╚██████╔╝███████╗",
+    "╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝ ╚═════╝ ╚══════╝",
+];
+const NEXT_W = 62;
+const boxRow = (runs) => {
+    const len = runs.reduce((n, [, t]) => n + [...t].length, 0);
+    return [["agent", "│ "], ...runs, ["", " ".repeat(Math.max(0, NEXT_W - len))], ["agent", " │"]];
+};
+/** `agentsol check` on a synthetic project, transcribed from a truecolor terminal. */
+const REPORT = [
+    [["agent", "◉ "], ["bold", "agentsol check"], ["muted", "  ~/code/my-app"]],
+    [["agent", "✓ "], ["", "Registered "], ["bold", "my-app"], ["muted", " in ~/.agentsol"]],
+    [["agent", "✓ "], ["", "Read 4 instruction files"], ["muted", " in 13 ms · nothing in your project was changed"]],
+    [],
+    [["sun", "◆ "], ["bold", "Findings"], ["", "  "], ["bad", "2 errors"], ["muted", " · "], ["warn", "2 warnings"], ["muted", " · "], ["info", "3 notes"]],
+    [],
+    [["bad", "  ✗ error  "], ["bold", "D02"], ["agent", "  skills/changelog/SKILL.md:2"], ["muted", "  fact"]],
+    [["", "    Skill name `Changelog` must use lowercase letters, digits and single hyphens."]],
+    [["muted", "       2 │ "], ["", "name: Changelog"]],
+    [],
+    [["warn", "  ▲ warn   "], ["bold", "D12"], ["agent", "  AGENTS.md:5"], ["muted", "  fact"]],
+    [["", "    1 line contains secret-like text. Every assistant that reads this file sees it."]],
+    [["muted", "       5 │ "], ["", "- token = [REDACTED:assignment]"]],
+    [],
+    [["warn", "  ▲ warn   "], ["bold", "D09"], ["agent", "  CLAUDE.md:3"], ["muted", "  fact"]],
+    [["", "    Import `@docs/style-guide.md` points to `docs/style-guide.md`, which does not exist."]],
+    [["muted", "       3 │ "], ["", "@docs/style-guide.md"]],
+    [],
+    [["agent", "╭─ "], ["bold", "Next"], ["agent", ` ${"─".repeat(NEXT_W - 5)}╮`]],
+    boxRow([["agent", "1 "], ["", "Let your AI go deeper:  "], ["bold", "npx -y agentsol@alpha connect"]]),
+    boxRow([["", "    then ask it: "], ["sun", "“Use agentsol to audit this project.”"]]),
+    boxRow([["agent", "2 "], ["", "Any chat AI, no setup:  "], ["bold", "npx -y agentsol@alpha prompt"]]),
+    [["agent", `╰${"─".repeat(NEXT_W + 2)}╯`]],
+];
+const runs = (row) => h("span", { class: "cli-line" }, ...row.map(([c, t]) => (c ? h("span", { class: `c-${c}` }, t) : t)), "\n");
+const bannerRow = (row) => h("span", { class: "cli-line" }, ...row.split(/(█+)/).filter(Boolean).map((part) => (part.startsWith("█") ? part : h("span", { class: "cb-sh" }, part))), "\n");
+/** The terminal UI, as text. Scrolls sideways on narrow screens instead of wrapping. */
+export function cliShowcase() {
+    return h("figure", { class: "cli-art" }, h("div", { class: "term" }, h("div", { class: "term-bar" }, h("span", { class: "term-dot" }), h("span", { class: "term-dot" }), h("span", { class: "term-dot" }), h("span", { class: "term-title" }, "~/code/my-app — npx -y agentsol@alpha check")), h("pre", { class: "cli", attrs: { tabindex: "0", role: "region", "aria-label": "Example agentsol check report in a terminal" } }, h("span", { class: "cli-banner", attrs: { "aria-hidden": "true" } }, ...BANNER.map(bannerRow)), ...REPORT.map(runs))), h("figcaption", { class: "legend" }, h("span", { class: "legend-item" }, "Transcribed from a real run on a synthetic project. Colors follow your terminal; NO_COLOR and pipes get plain text.")));
 }

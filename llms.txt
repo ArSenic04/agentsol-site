@@ -1,0 +1,37 @@
+# Agentsol
+
+> Agentsol is a free, MIT-licensed MCP server and CLI (npm package `agentsol`, early alpha) that audits the instruction files AI coding agents follow: AGENTS.md, AGENTS.override.md, CLAUDE.md, CLAUDE.local.md and SKILL.md. It runs locally, uses the person's own assistant (no API key, no hosted service), cites exact lines for every finding, and only proposes diffs. A person approves and applies changes in their own terminal; there is no MCP tool for approval.
+
+## Install (any MCP client)
+
+- Command: `npx`, args: `-y -p agentsol@alpha agentsol-mcp` (workspace defaults to `<home>/.agentsol`; override with `AGENTSOL_WORKSPACE`)
+- Claude Code: `claude mcp add agentsol -s user -- npx -y -p agentsol@alpha agentsol-mcp`
+- Codex: `codex mcp add agentsol -- npx -y -p agentsol@alpha agentsol-mcp`
+- Gemini CLI: `gemini mcp add -s user agentsol npx -y -p agentsol@alpha agentsol-mcp`
+- A person registers and scans each project first, inside it: `npx -y agentsol@alpha check`
+- Web chats without MCP: `npx -y agentsol@alpha prompt` prints one masked prompt to paste.
+- Requires Node.js 24 or newer.
+
+## MCP prompts and resources
+
+- Prompts: `audit` (full audit), `fix` (turn findings into proposals), `explain` (which instruction files apply to a path)
+- Resource: `agentsol://guide` (workflow and check catalogue)
+
+## MCP tools
+
+projects_list, workspace_status, sources_freshness, sources_scan, sources_list, source_read, scope_resolve, checks_run, findings_list, findings_submit, change_propose, changes_list, change_status
+
+## Workflow for agents
+
+1. projects_list, then sources_scan and findings_list. Structural findings are facts.
+2. source_read for numbered, masked lines and the current versionId.
+3. findings_submit for POSSIBLE issues, always with exact quoted evidence.
+4. change_propose for fixes. Never edit instruction files directly.
+5. Tell the user to run `npx agentsol review <proposalId>` in their own terminal.
+
+## Links
+
+- [Install guide](https://agentsol.js.org/#/setup)
+- [Browser checker, no install](https://agentsol.js.org/#/check)
+- [Interactive demo](https://agentsol.js.org/#/demo)
+- [npm package](https://www.npmjs.com/package/agentsol)

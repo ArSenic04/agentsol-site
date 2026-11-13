@@ -1,10 +1,11 @@
+import { renderChecker } from "./checker.js";
 import { detectLocalBridge, demoSource, loadDemoBundle, localSource } from "./data.js";
 import { h, replace } from "./dom.js";
 import { renderLanding } from "./landing.js";
 import { SERVED_BY } from "./mode.js";
 import { renderSetup } from "./setup.js";
 import { codeBlock, renderWorkspace } from "./workspace.js";
-const TITLES = { "": "Agentsol: read your agent instructions together", demo: "Demo · Agentsol", workspace: "Workspace · Agentsol", setup: "Local setup · Agentsol" };
+const TITLES = { "": "Agentsol: audit the instructions your AI agents follow", check: "Browser checker · Agentsol", demo: "Demo · Agentsol", workspace: "Workspace · Agentsol", setup: "Install · Agentsol" };
 function currentRoute() {
     const m = /^#\/([a-z-]*)$/.exec(window.location.hash);
     const r = m?.[1] ?? "";
@@ -25,6 +26,8 @@ async function render() {
     main.setAttribute("aria-busy", "true");
     if (r === "setup")
         renderSetup(main);
+    else if (r === "check")
+        renderChecker(main);
     else if (r === "demo") {
         const bundle = await loadDemoBundle();
         if (bundle)
