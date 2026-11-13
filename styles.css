@@ -1,4 +1,4 @@
-/* Agentsol: typography-led, paper and ink, terracotta accents. Terminal blocks stay dark. No external assets. */
+/* Agentsol: typography-led, paper and ink, terracotta accents. Light only. No external assets. */
 :root {
   --paper: #f5f2ea;
   --paper-2: #ece7db;
@@ -30,23 +30,9 @@
   --measure: 66ch;
   color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #14130f; --paper-2: #1c1a15; --card: #1a1914; --card-2: #201e18;
-    --ink: #ede8dc; --ink-2: #b3ac9c; --rule: #3a362d; --rule-2: #4a4539;
-    --accent: #f08a55; --accent-soft: #3b2518; --sun: #f08a55; --sun-2: #d4612c; --focus: #8ab4ff;
-    --agent: #7cc7b8; --agent-soft: #1b2e2a; --on-sun: #1c1b18;
-    --grad-sun: linear-gradient(135deg, #f5a06e 0%, #f08a55 100%);
-    --ok: #8fd19a; --ok-bg: #1d3322; --warn: #f0c56a; --warn-bg: #3a2e12;
-    --bad: #f39a9a; --bad-bg: #3d1c1f; --possible: #b9b7ff; --possible-bg: #26254a; --muted-bg: #2a2820;
-    color-scheme: dark;
-  }
-}
-/* Terminal illustrations keep a terminal's dark palette in both themes. */
+/* Terminal illustrations: a light terminal that matches the page. */
 .term, .cli-art .term {
-  --ink: #e9edf6; --ink-2: #97a2b9; --rule: #1d2536; --rule-2: #2a3550; --card: #0e131e; --muted-bg: #172033;
-  --sun: #ffb547; --agent: #5eead4; --ok: #74e3a8; --warn: #f6c768; --bad: #ff95a0; --possible: #b9adff; --on-sun: #160b03;
-  --grad-sun: linear-gradient(135deg, #ffd166 0%, #ff9a52 45%, #ff6b3d 100%);
+  --sun: #b9471c; --agent: #1f6f66; --ok: #2f6b3a; --warn: #8a5a00; --bad: #9f1d2b; --possible: #3b3a8f; --on-sun: #fffaf3;
   color: var(--ink);
 }
 
@@ -130,8 +116,8 @@ nav { margin-left: auto; }
 /* Hero: agent session */
 .hero-art { margin: 0; min-width: 0; position: relative; }
 .hero-art::before { content: ""; position: absolute; inset: 8% 6%; background: radial-gradient(closest-side, rgba(255, 130, 60, 0.28), transparent); filter: blur(30px); z-index: -1; }
-.term { background: linear-gradient(180deg, #0f1522 0%, #0a0e17 100%); border: 1px solid var(--rule-2); border-radius: 18px; box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255,255,255,0.05); overflow: hidden; }
-.term-bar { display: flex; align-items: center; gap: 0.45rem; padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--rule); background: rgba(255,255,255,0.02); }
+.term { background: var(--card); border: 1px solid var(--rule-2); border-radius: 18px; box-shadow: 0 24px 60px -32px rgba(60, 40, 20, 0.35); overflow: hidden; }
+.term-bar { display: flex; align-items: center; gap: 0.45rem; padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--rule); background: var(--paper-2); }
 .term-dot { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: #2a3448; }
 .term-dot:nth-child(1) { background: #ff6b6b; } .term-dot:nth-child(2) { background: #f6c768; } .term-dot:nth-child(3) { background: #74e3a8; }
 .term-title { margin-left: 0.5rem; font: 600 0.8rem/1 var(--mono); color: var(--ink-2); }
@@ -399,7 +385,7 @@ input { min-width: min(22rem, 100%); font-family: var(--mono); font-size: 0.9rem
 .cli-art { margin: 1.4rem 0 0; }
 .cli { margin: 0; padding: 1.1rem 1.2rem 1.3rem; font: 0.8rem/1.5 var(--mono); color: var(--ink); overflow-x: auto; white-space: pre; background: transparent; border: 0; }
 .cli:focus-visible { outline: 2px solid var(--agent); outline-offset: -2px; }
-.cli-banner { display: block; width: max-content; margin-bottom: 0.9rem; font-size: clamp(4.5px, 1.45vw, 0.74rem); line-height: 1; background: linear-gradient(90deg, #ffd166 0%, #ff9a52 50%, #ff6b3d 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.cb-sh { color: #2f8f86; }
+.cli-banner { display: block; width: max-content; margin-bottom: 0.9rem; font-size: clamp(4.5px, 1.45vw, 0.74rem); line-height: 1; background: linear-gradient(90deg, #d4612c 0%, #b9471c 50%, #9a3412 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.cb-sh { color: #c9a48c; }
 .c-sun { color: var(--sun); } .c-agent { color: var(--agent); } .c-bad { color: var(--bad); } .c-warn { color: var(--warn); }
-.c-info { color: #7dd3fc; } .c-muted { color: var(--ink-2); } .c-bold { font-weight: 700; color: var(--ink); }
+.c-info { color: #1d4e89; } .c-muted { color: var(--ink-2); } .c-bold { font-weight: 700; color: var(--ink); }
