@@ -10,7 +10,7 @@ const RISKY_RULES = [
     { re: /\b(curl|wget|iwr)\b[^|;\n]*\|\s*(sudo\s+)?(ba|z)?sh\b|\b(curl|wget)\b[^|;\n]*\|\s*(sudo\s+)?(python3?|node|perl|ruby)\b/i, what: "pipe a downloaded script straight into a shell" },
     { re: /--no-verify\b|\bHUSKY=0\b/, what: "skip git hooks (--no-verify)" },
     { re: /--dangerously-skip-permissions|--dangerously-bypass-approvals-and-sandbox|--yolo\b|\bbypassPermissions\b|\bdanger-full-access\b/, what: "turn off permission prompts or the sandbox" },
-    { re: /\bgit\s+push\s+(\S+\s+)*(-f|--force)(\s|$)/, what: "force-push" },
+    { re: /\bgit\s+push\s+(\S+\s+)*(-f|--force)(?![\w-])/, what: "force-push" },
     { re: /\b(skip|disable|delete|remove|comment out|mark as skipped)\s+(the\s+|any\s+|all\s+)?(failing\s+|broken\s+|flaky\s+)?tests?\b/i, what: "skip or delete failing tests" },
     { re: /\bcurl\b[^\n]*\s(-k|--insecure)\b|\bverify\s*=\s*False\b|rejectUnauthorized\s*:\s*false|NODE_TLS_REJECT_UNAUTHORIZED|\b(disable|turn off)\s+(ssl|tls|certificate)\s+(verification|checks?)/i, what: "turn off TLS certificate checks" },
     { re: /\bchmod\s+(-R\s+)?(0?777|a\+rwx)\b/, what: "make files writable by everyone (chmod 777)" },
