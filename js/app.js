@@ -5,7 +5,7 @@ import { renderLanding } from "./landing.js";
 import { SERVED_BY } from "./mode.js";
 import { renderSetup } from "./setup.js";
 import { codeBlock, renderWorkspace } from "./workspace.js";
-const TITLES = { "": "Agentsol: audit the instructions your AI agents follow", check: "Browser checker · Agentsol", demo: "Demo · Agentsol", workspace: "Workspace · Agentsol", setup: "Install · Agentsol" };
+const TITLES = { "": "Agentsol: review your AI agents' rules, work and setup", check: "Browser checker · Agentsol", demo: "Demo · Agentsol", workspace: "Workspace · Agentsol", setup: "Install · Agentsol" };
 function currentRoute() {
     const m = /^#\/([a-z-]*)$/.exec(window.location.hash);
     const r = m?.[1] ?? "";

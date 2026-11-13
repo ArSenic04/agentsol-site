@@ -1,6 +1,6 @@
 # Agentsol
 
-> Agentsol is a free, MIT-licensed MCP server and CLI (npm package `agentsol`, early alpha) that audits the instruction files AI coding agents follow: AGENTS.md, AGENTS.override.md, CLAUDE.md, CLAUDE.local.md and SKILL.md. It runs locally, uses the person's own assistant (no API key, no hosted service), cites exact lines for every finding, and only proposes diffs. A person approves and applies changes in their own terminal; there is no MCP tool for approval.
+> Agentsol is a free, MIT-licensed MCP server and CLI (npm package `agentsol`, early alpha) that reviews AI coding agents' work: the instruction files they follow (AGENTS.md, AGENTS.override.md, CLAUDE.md, CLAUDE.local.md and SKILL.md), what they did in recent Claude Code and Codex sessions, and how the AI apps on the machine are set up. It runs locally, uses the person's own assistant (no API key, no hosted service), cites exact lines for every finding, and only proposes diffs. A person approves and applies changes in their own terminal; there is no MCP tool for approval.
 
 ## Install (any MCP client)
 
@@ -10,16 +10,18 @@
 - Gemini CLI: `gemini mcp add -s user agentsol npx -y -p agentsol@alpha agentsol-mcp`
 - A person registers and scans each project first, inside it: `npx -y agentsol@alpha check`
 - Web chats without MCP: `npx -y agentsol@alpha prompt` prints one masked prompt to paste.
+- Sessions: `npx -y agentsol@alpha sessions` and `npx -y agentsol@alpha session <id> --timeline`
+- Setup audit: `npx -y agentsol@alpha doctor`
 - Requires Node.js 24 or newer.
 
 ## MCP prompts and resources
 
-- Prompts: `audit` (full audit), `fix` (turn findings into proposals), `explain` (which instruction files apply to a path)
+- Prompts: `audit` (full audit), `fix` (turn findings into proposals), `explain` (which instruction files apply to a path), `review` (grade recent sessions on the rubric), `setup` (explain the setup audit)
 - Resource: `agentsol://guide` (workflow and check catalogue)
 
 ## MCP tools
 
-projects_list, workspace_status, sources_freshness, sources_scan, sources_list, source_read, scope_resolve, checks_run, findings_list, findings_submit, change_propose, changes_list, change_status
+projects_list, workspace_status, sources_freshness, sources_scan, sources_list, source_read, scope_resolve, checks_run, findings_list, findings_submit, change_propose, changes_list, change_status, sessions_list, session_review, session_grade, setup_audit
 
 ## Workflow for agents
 
@@ -28,6 +30,9 @@ projects_list, workspace_status, sources_freshness, sources_scan, sources_list, 
 3. findings_submit for POSSIBLE issues, always with exact quoted evidence.
 4. change_propose for fixes. Never edit instruction files directly.
 5. Tell the user to run `npx agentsol review <proposalId>` in their own terminal.
+6. sessions_list and session_review report what agents did (checks A01-A13, facts). session_grade stores your rubric grade (safety, instructions, verification, efficiency, scope; 1-5 each), citing real step numbers. It is labelled assistant judgment.
+7. setup_audit reports AI app settings (checks C01-C10): plaintext secrets, unpinned or missing MCP servers, permissions that skip confirmation, hooks. Explain; never change settings.
+8. Session and setup tools return derived facts only, never transcript text, tool output or secret values. Over MCP, only sessions inside registered projects are visible.
 
 ## Links
 

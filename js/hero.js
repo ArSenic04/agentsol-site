@@ -65,3 +65,34 @@ const bannerRow = (row) => h("span", { class: "cli-line" }, ...row.split(/(█+)
 export function cliShowcase() {
     return h("figure", { class: "cli-art" }, h("div", { class: "term" }, h("div", { class: "term-bar" }, h("span", { class: "term-dot" }), h("span", { class: "term-dot" }), h("span", { class: "term-dot" }), h("span", { class: "term-title" }, "~/code/my-app — npx -y agentsol@alpha check")), h("pre", { class: "cli", attrs: { tabindex: "0", role: "region", "aria-label": "Example agentsol check report in a terminal" } }, h("span", { class: "cli-banner", attrs: { "aria-hidden": "true" } }, ...BANNER.map(bannerRow)), ...REPORT.map(runs))), h("figcaption", { class: "legend" }, h("span", { class: "legend-item" }, "Transcribed from a real run on a synthetic project. Colors follow your terminal; NO_COLOR and pipes get plain text.")));
 }
+/** `agentsol sessions` and `agentsol session <id>` on a synthetic transcript, transcribed from a real run. */
+const SESSIONS = [
+    [["agent", "◉ "], ["bold", "agentsol sessions"], ["muted", "  since 11/06/2026 · Claude Code and Codex"]],
+    [],
+    [["bad", "  ✗ risky   "], ["bold", "claude-531fdff16bae  "], ["muted", "Claude 2h ago  "], ["", "my-app"], ["muted", "    41 steps · 6 edited · 182k tok"]],
+    [["warn", "  ▲ review  "], ["bold", "codex-9e04c2a1b7d3   "], ["muted", "Codex  1d ago  "], ["", "my-app"], ["muted", "    17 steps · 2 edited · 64k tok"]],
+    [["ok", "  ✓ clean   "], ["bold", "claude-27b8e0f4c91a  "], ["muted", "Claude 3d ago  "], ["", "docs-site"], ["muted", " 12 steps · 1 edited · 31k tok"]],
+    [],
+    [["agent", "◉ "], ["bold", "session claude-531fdff16bae"], ["bad", "  ✗ risky"], ["muted", "  Claude Code"]],
+    [],
+    [["sun", "◆ "], ["bold", "Findings"], ["", "  "], ["bad", "1 error"], ["muted", " · "], ["warn", "2 warnings"], ["muted", " · "], ["info", "1 note"]],
+    [],
+    [["bad", "  ✗ error  "], ["bold", "A01"], ["", "  Destructive command"], ["muted", "  · step 38"]],
+    [["", "    Recursively deleted your home folder."]],
+    [["agent", "    rm -rf ~"]],
+    [],
+    [["warn", "  ▲ warn   "], ["bold", "A05"], ["", "  Safety check bypassed"], ["muted", "  · step 31"]],
+    [["", "    Committed with --no-verify, skipping the repository's commit hooks."]],
+    [["agent", "    git commit --no-verify -m wip"]],
+    [],
+    [["warn", "  ▲ warn   "], ["bold", "A06"], ["", "  Tests weakened or removed"], ["muted", "  · step 24"]],
+    [["", "    Added 1 skipped or focused test, so part of the test suite no longer runs."]],
+    [],
+    [["info", "  ● note   "], ["bold", "A12"], ["", "  Edits never verified"], ["muted", "  · step 40"]],
+    [["", "    Code changed after the last test, build or lint run."]],
+    [],
+    [["muted", "  Read from the transcript on this machine. Nothing was changed, and nothing was sent anywhere."]],
+];
+export function sessionShowcase() {
+    return h("figure", { class: "cli-art" }, h("div", { class: "term" }, h("div", { class: "term-bar" }, h("span", { class: "term-dot" }), h("span", { class: "term-dot" }), h("span", { class: "term-dot" }), h("span", { class: "term-title" }, "~/code/my-app — npx -y agentsol@alpha sessions")), h("pre", { class: "cli", attrs: { tabindex: "0", role: "region", "aria-label": "Example agentsol sessions and session report in a terminal" } }, ...SESSIONS.map(runs))), h("figcaption", { class: "legend" }, h("span", { class: "legend-item" }, "Synthetic transcripts. Check ids, wording and layout are the CLI's own; the session list is illustrative.")));
+}

@@ -388,4 +388,5 @@ input { min-width: min(22rem, 100%); font-family: var(--mono); font-size: 0.9rem
 .cli-banner { display: block; width: max-content; margin-bottom: 0.9rem; font-size: clamp(4.5px, 1.45vw, 0.74rem); line-height: 1; background: linear-gradient(90deg, #d4612c 0%, #b9471c 50%, #9a3412 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .cb-sh { color: #c9a48c; }
 .c-sun { color: var(--sun); } .c-agent { color: var(--agent); } .c-bad { color: var(--bad); } .c-warn { color: var(--warn); }
-.c-info { color: #1d4e89; } .c-muted { color: var(--ink-2); } .c-bold { font-weight: 700; color: var(--ink); }
+.c-info { color: #1d4e89; } .c-muted { color: var(--ink-2); } .c-bold { font-weight: 700; color: var(--ink); } .c-ok { color: var(--ok); }
+.cli-art + .two-col { margin-top: 2.25rem; }
