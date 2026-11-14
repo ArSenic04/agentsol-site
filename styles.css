@@ -147,9 +147,23 @@ nav { margin-left: auto; }
 /* Landing: client strip */
 .clients { padding: 1.5rem 0 0.5rem; text-align: center; }
 .clients-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-2); margin-bottom: 0.9rem; }
-.client-row { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.55rem; }
-.client-row li { font-weight: 650; font-size: 0.92rem; color: var(--ink-2); border: 1px solid var(--rule); background: var(--card); padding: 0.45rem 0.85rem; border-radius: 10px; }
-.client-row li.client-web { border-style: dashed; color: var(--ink-2); }
+.client-carousel { overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; padding: 0.35rem 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); border-radius: 12px; }
+.client-carousel::-webkit-scrollbar { display: none; }
+.client-carousel:focus-visible { outline: 2px solid var(--sun); outline-offset: 2px; }
+.client-belt { display: flex; width: max-content; animation: client-scroll 34s linear infinite; }
+.client-carousel:hover .client-belt, .client-carousel:focus-within .client-belt { animation-play-state: paused; }
+.client-track { list-style: none; margin: 0; padding: 0 0.6rem 0 0; display: flex; gap: 0.6rem; }
+.client-logo { display: inline-flex; align-items: center; gap: 0.55rem; white-space: nowrap; font-weight: 650; font-size: 0.95rem; color: var(--ink-2); border: 1px solid var(--rule); background: var(--card); padding: 0.6rem 1rem; border-radius: 12px; transition: color 0.2s, border-color 0.2s; }
+.client-logo:hover { color: var(--ink); border-color: var(--rule-2); }
+.client-mark { width: 1.35rem; height: 1.35rem; flex: none; fill: currentColor; transition: fill 0.2s; }
+.client-logo:hover .mark-claude { fill: #d97757; }
+.client-logo:hover .mark-gemini { fill: #8e75b2; }
+.client-logo:hover .mark-cursor, .client-logo:hover .mark-copilot, .client-logo:hover .mark-mcp, .client-logo:hover .mark-windsurf { fill: #111; }
+.mark-codex { fill: none; }
+.mark-frame { fill: none; stroke: currentColor; stroke-width: 1.8; }
+.mark-stroke { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.clients .client-web { margin-top: 0.8rem; font-size: 0.85rem; color: var(--ink-2); }
+@keyframes client-scroll { to { transform: translateX(-50%); } }
 
 /* Landing: sections */
 .section { padding: clamp(3rem, 6vw, 5rem) 0 0; }
@@ -355,6 +369,10 @@ input { min-width: min(22rem, 100%); font-family: var(--mono); font-size: 0.9rem
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .term-line { opacity: 1; transform: none; }
+  .client-carousel { -webkit-mask-image: none; mask-image: none; }
+  .client-belt { width: auto; justify-content: center; }
+  .client-track { flex-wrap: wrap; justify-content: center; padding: 0; }
+  .client-track[aria-hidden="true"] { display: none; }
 }
 
 @media (max-width: 60rem) {
