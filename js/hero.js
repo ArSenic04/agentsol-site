@@ -136,6 +136,28 @@ const LEARN = [
     [],
     [["muted", "  Read from transcripts on this machine. Nothing was sent anywhere, and no project file was changed."]],
 ];
+/** `agentsol start` on a synthetic project with three past Claude Code sessions, transcribed from a real run. */
+const START = [
+    [["sun", "◉ "], ["bold", "agentsol start  "], ["muted", "~/code/my-app"]],
+    [],
+    [["ok", "  ✓ "], ["bold", "Project      "], ["", "registered my-app"], ["muted", " · 1 instruction file · "], ["ok", "no problems"]],
+    [["agent", "  ? "], ["", "Connect agentsol to Claude Code? It runs "], ["bold", "claude mcp add"], ["muted", " (adds it to your user config)"], ["", " [Y/n] "], ["bold", "y"]],
+    [["ok", "  ✓ "], ["bold", "Your AI      "], ["", "Claude Code"], ["muted", " · "], ["ok", "connected now"]],
+    [["warn", "  ▲ "], ["bold", "Agent work   "], ["", "3 sessions"], ["muted", " · "], ["warn", "24m lost to repeat mistakes"], ["muted", " · "], ["ok", "none risky"]],
+    [["ok", "  ✓ "], ["bold", "AI settings  "], ["ok", "nothing risky"]],
+    [],
+    ltop("Next"),
+    lrow(["agent", "1 "], ["", "Stop 3 repeated mistakes:  "], ["bold", "agentsol learn --propose"]),
+    lrow(["agent", "  "], ["muted", "adds the rules to your instruction file after you approve"]),
+    lrow(["agent", "2 "], ["", "Restart your AI app, then ask:  "], ["sun", "“Use agentsol to audit"]),
+    lrow(["agent", "  "], ["sun", "this project.”"], ["muted", "  or use "], ["bold", "/audit"], ["muted", " · "], ["bold", "/learn"], ["muted", " · "], ["bold", "/review"]),
+    lend,
+    [],
+    [["muted", "  Nothing in your project was changed. Agentsol only reads; you approve every edit."]],
+];
+export function startShowcase() {
+    return h("figure", { class: "cli-art" }, h("div", { class: "term" }, h("div", { class: "term-bar" }, h("span", { class: "term-dot" }), h("span", { class: "term-dot" }), h("span", { class: "term-dot" }), h("span", { class: "term-title" }, "~/code/my-app — npx -y agentsol@alpha start")), h("pre", { class: "cli", attrs: { tabindex: "0", role: "region", "aria-label": "Example agentsol start run in a terminal" } }, ...START.map(runs))), h("figcaption", { class: "legend" }, h("span", { class: "legend-item" }, "Transcribed from a real run on a synthetic project. It only connects apps you have installed, and only after you answer yes.")));
+}
 export function learnShowcase() {
     return h("figure", { class: "cli-art" }, h("div", { class: "term" }, h("div", { class: "term-bar" }, h("span", { class: "term-dot" }), h("span", { class: "term-dot" }), h("span", { class: "term-dot" }), h("span", { class: "term-title" }, "~/code/my-app — npx -y agentsol@alpha learn")), h("pre", { class: "cli", attrs: { tabindex: "0", role: "region", "aria-label": "Example agentsol learn report in a terminal" } }, ...LEARN.map(runs))), h("figcaption", { class: "legend" }, h("span", { class: "legend-item" }, "Transcribed from a real run on three synthetic transcripts. Your numbers come from your own sessions.")));
 }

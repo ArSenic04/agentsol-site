@@ -8,7 +8,7 @@
 - Claude Code: `claude mcp add agentsol -s user -- npx -y -p agentsol@alpha agentsol-mcp`
 - Codex: `codex mcp add agentsol -- npx -y -p agentsol@alpha agentsol-mcp`
 - Gemini CLI: `gemini mcp add -s user agentsol npx -y -p agentsol@alpha agentsol-mcp`
-- A person registers and scans each project first, inside it: `npx -y agentsol@alpha check`
+- A person sets up each project first, inside it: `npx -y agentsol@alpha start` (registers and scans it, and connects installed apps after asking). `check` is the scan alone.
 - Web chats without MCP: `npx -y agentsol@alpha prompt` prints one masked prompt to paste.
 - Sessions: `npx -y agentsol@alpha sessions` and `npx -y agentsol@alpha session <id> --timeline`
 - Setup audit: `npx -y agentsol@alpha doctor`
