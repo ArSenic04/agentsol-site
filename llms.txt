@@ -21,7 +21,7 @@
 
 ## MCP tools
 
-projects_list, workspace_status, sources_freshness, sources_scan, sources_list, source_read, scope_resolve, checks_run, findings_list, findings_submit, change_propose, changes_list, change_status, sessions_list, session_review, session_grade, setup_audit
+projects_list, workspace_status, sources_freshness, sources_scan, sources_list, source_read, scope_resolve, checks_run, findings_list, findings_submit, change_propose, changes_list, change_status, sessions_list, session_review, session_grade, setup_audit, inspect
 
 ## Workflow for agents
 
@@ -33,10 +33,12 @@ projects_list, workspace_status, sources_freshness, sources_scan, sources_list, 
 6. sessions_list and session_review report what agents did (checks A01-A14, facts). session_grade stores your rubric grade (safety, instructions, verification, efficiency, scope; 1-5 each), citing real step numbers. It is labelled assistant judgment.
 7. setup_audit reports AI app settings (checks C01-C10): plaintext secrets, unpinned or missing MCP servers, permissions that skip confirmation, hooks. Explain; never change settings.
 8. Session and setup tools return derived facts only, never transcript text, tool output or secret values. Over MCP, only sessions inside registered projects are visible.
+9. inspect checks a skill or MCP server before it is installed: pass its files as text (SKILL.md and scripts, or a tools/list JSON). Verdict danger, caution or clean, with findings by file and line. Needs no registered project. Also on the web and as `npx agentsol@alpha inspect <folder>`.
 
 ## Links
 
-- [Install guide](https://agentsol.js.org/#/setup)
-- [Browser checker, no install](https://agentsol.js.org/#/check)
-- [Interactive demo](https://agentsol.js.org/#/demo)
+- [Install guide](https://arsenic04.github.io/agentsol-site/#/setup)
+- [Inspect a skill or MCP server before installing, no install](https://arsenic04.github.io/agentsol-site/#/inspect)
+- [Browser checker, no install](https://arsenic04.github.io/agentsol-site/#/check)
+- [Interactive demo](https://arsenic04.github.io/agentsol-site/#/demo)
 - [npm package](https://www.npmjs.com/package/agentsol)

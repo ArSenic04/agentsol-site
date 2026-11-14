@@ -113,3 +113,5 @@ export function redactLines(lines) {
 /** Kinds of real (non-placeholder) secrets in the text, most specific first. */
 export const secretKinds = (text) => [...new Set(redactLines(text.split(/\r?\n/)).redacted.flatMap((r) => r.real))];
 export const containsSecretLike = (text) => redactLines(text.split(/\r?\n/)).redacted.length > 0;
+/** Label of the first real secret on a line, for reports that must never show the value. */
+export const secretIn = (line) => { const k = secretKinds(line)[0]; return k ? secretLabel(k) : null; };

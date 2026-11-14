@@ -390,3 +390,11 @@ input { min-width: min(22rem, 100%); font-family: var(--mono); font-size: 0.9rem
 .c-sun { color: var(--sun); } .c-agent { color: var(--agent); } .c-bad { color: var(--bad); } .c-warn { color: var(--warn); }
 .c-info { color: #1d4e89; } .c-muted { color: var(--ink-2); } .c-bold { font-weight: 700; color: var(--ink); } .c-ok { color: var(--ok); }
 .cli-art + .two-col { margin-top: 2.25rem; }
+
+/* Inspect */
+.verdict { border: 1px solid var(--rule-2); border-left-width: 6px; border-radius: 12px; padding: 1rem 1.25rem; margin: 1.5rem 0 1rem; background: var(--card); }
+.verdict h2 { margin: 0.5rem 0 0.25rem; }
+.verdict-danger { border-left-color: var(--bad); }
+.verdict-caution { border-left-color: var(--warn); }
+.verdict-clean { border-left-color: var(--ok); }
+.linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--sun); text-decoration: underline; cursor: pointer; }

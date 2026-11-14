@@ -1,11 +1,12 @@
 import { renderChecker } from "./checker.js";
+import { renderInspect } from "./inspect.js";
 import { detectLocalBridge, demoSource, loadDemoBundle, localSource } from "./data.js";
 import { h, replace } from "./dom.js";
 import { renderLanding } from "./landing.js";
 import { SERVED_BY } from "./mode.js";
 import { renderSetup } from "./setup.js";
 import { codeBlock, renderWorkspace } from "./workspace.js";
-const TITLES = { "": "Agentsol: review your AI agents' rules, work and setup", check: "Browser checker · Agentsol", demo: "Demo · Agentsol", workspace: "Workspace · Agentsol", setup: "Install · Agentsol" };
+const TITLES = { "": "Agentsol: review your AI agents' rules, work and setup", check: "Browser checker · Agentsol", inspect: "Is this skill or MCP server safe? · Agentsol Inspect", demo: "Demo · Agentsol", workspace: "Workspace · Agentsol", setup: "Install · Agentsol" };
 function currentRoute() {
     const m = /^#\/([a-z-]*)$/.exec(window.location.hash);
     const r = m?.[1] ?? "";
@@ -28,6 +29,8 @@ async function render() {
         renderSetup(main);
     else if (r === "check")
         renderChecker(main);
+    else if (r === "inspect")
+        renderInspect(main);
     else if (r === "demo") {
         const bundle = await loadDemoBundle();
         if (bundle)
