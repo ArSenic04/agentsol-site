@@ -16,12 +16,12 @@
 
 ## MCP prompts and resources
 
-- Prompts: `audit` (full audit), `fix` (turn findings into proposals), `explain` (which instruction files apply to a path), `review` (grade recent sessions on the rubric), `setup` (explain the setup audit)
+- Prompts: `audit` (full audit), `fix` (turn findings into proposals), `explain` (which instruction files apply to a path), `review` (grade recent sessions on the rubric), `setup` (explain the setup audit), `learn` (turn repeated agent mistakes into rules for AGENTS.md)
 - Resource: `agentsol://guide` (workflow and check catalogue)
 
 ## MCP tools
 
-projects_list, workspace_status, sources_freshness, sources_scan, sources_list, source_read, scope_resolve, checks_run, findings_list, findings_submit, change_propose, changes_list, change_status, sessions_list, session_review, session_grade, setup_audit, inspect
+projects_list, workspace_status, sources_freshness, sources_scan, sources_list, source_read, scope_resolve, checks_run, findings_list, findings_submit, change_propose, changes_list, change_status, sessions_list, session_review, session_grade, setup_audit, inspect, lessons_list
 
 ## Workflow for agents
 
@@ -34,6 +34,7 @@ projects_list, workspace_status, sources_freshness, sources_scan, sources_list, 
 7. setup_audit reports AI app settings (checks C01-C10): plaintext secrets, unpinned or missing MCP servers, permissions that skip confirmation, hooks. Explain; never change settings.
 8. Session and setup tools return derived facts only, never transcript text, tool output or secret values. Over MCP, only sessions inside registered projects are visible.
 9. inspect checks a skill or MCP server before it is installed: pass its files as text (SKILL.md and scripts, or a tools/list JSON). Verdict danger, caution or clean, with findings by file and line. Needs no registered project. Also on the web and as `npx agentsol@alpha inspect <folder>`.
+10. lessons_list finds mistakes agents repeated in a project across Claude Code and Codex sessions (a command that fails and the one that works, files they keep breaking, things the user told them more than once), with the time and tokens lost and one rule per lesson. Pass its suggestedChange to change_propose; never edit instruction files directly. Also `npx agentsol@alpha learn [--propose]`.
 
 ## Links
 

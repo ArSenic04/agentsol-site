@@ -96,3 +96,46 @@ const SESSIONS = [
 export function sessionShowcase() {
     return h("figure", { class: "cli-art" }, h("div", { class: "term" }, h("div", { class: "term-bar" }, h("span", { class: "term-dot" }), h("span", { class: "term-dot" }), h("span", { class: "term-dot" }), h("span", { class: "term-title" }, "~/code/my-app — npx -y agentsol@alpha sessions")), h("pre", { class: "cli", attrs: { tabindex: "0", role: "region", "aria-label": "Example agentsol sessions and session report in a terminal" } }, ...SESSIONS.map(runs))), h("figcaption", { class: "legend" }, h("span", { class: "legend-item" }, "Synthetic transcripts. Check ids, wording and layout are the CLI's own; the session list is illustrative.")));
 }
+const BOX = 62;
+const ltop = (title) => [["", "  ╭─ "], ["bold", title], ["", ` ${"─".repeat(BOX - title.length - 3)}╮`]];
+const lrow = (...parts) => [["", "  │ "], ...parts, ["", `${" ".repeat(Math.max(0, BOX - 1 - parts.reduce((n, p) => n + p[1].length, 0)))}│`]];
+const lend = [["", `  ╰${"─".repeat(BOX)}╯`]];
+/** `agentsol learn` on three synthetic Claude Code transcripts, transcribed from a real run. */
+const LEARN = [
+    [["sun", "◉ "], ["bold", "agentsol learn  "], ["muted", "my-app · since 10/15/2026 · 3 sessions read"]],
+    [],
+    ltop("What repeated mistakes cost"),
+    lrow(["muted", "Time lost     "], ["bold", "24m"], ["muted", " of 29m active agent time (82%)"]),
+    lrow(["muted", "Tokens lost   "], ["bold", "17k"], ["muted", " of 26k · 15 wasted steps"]),
+    lrow(["muted", "Lessons       "], ["", "3 · "], ["ok", "3 new rules"]),
+    lend,
+    [],
+    [["muted", "    1  "], ["bad", "fragile "], ["muted", "  3× in 3 sessions · 20m lost"]],
+    [["", "         Agents broke and re-fixed `src/billing/invoice.ts` in 3 sessions."]],
+    [["ok", "         rule  → "], ["bold", "After changing `src/billing/invoice.ts`, run"]],
+    [["bold", "                 `pnpm test billing` before moving on."]],
+    [["muted", "         seen in claude-015036e44317 step 3 · claude-3f070fb82352 step 3 · …"]],
+    [],
+    [["muted", "    2  "], ["warn", "command "], ["muted", "  3× in 3 sessions · 4m lost"]],
+    [["", "         Agents use `npm` here, which fails; `pnpm` works (for example"]],
+    [["", "         `pnpm test`)."]],
+    [["ok", "         rule  → "], ["bold", "Use `pnpm`, not `npm` (for example `pnpm test`)."]],
+    [["muted", "         seen in claude-015036e44317 step 1 · claude-3f070fb82352 step 1 · …"]],
+    [],
+    [["muted", "    3  "], ["sun", "you said"], ["muted", "  2× in 2 sessions"]],
+    [["", "         You told agents this in 2 sessions: “never edit the generated files"]],
+    [["", "         in gen/, run pnpm codegen”"]],
+    [["ok", "         rule  → "], ["bold", "Never edit the generated files in gen/, run pnpm codegen."]],
+    [["muted", "         seen in claude-3f070fb82352 step 2 · claude-a9e7b10d15f3 step 2"]],
+    [],
+    ltop("Next"),
+    lrow(["agent", "1 "], ["", "Add 3 rules to AGENTS.md:  "], ["bold", "agentsol learn --propose"]),
+    lrow(["muted", "  you read the diff, then approve and apply it yourself"]),
+    lrow(["agent", "2 "], ["", "Or ask your AI:  "], ["sun", "/learn"], ["muted", "  · run it weekly"]),
+    lend,
+    [],
+    [["muted", "  Read from transcripts on this machine. Nothing was sent anywhere, and no project file was changed."]],
+];
+export function learnShowcase() {
+    return h("figure", { class: "cli-art" }, h("div", { class: "term" }, h("div", { class: "term-bar" }, h("span", { class: "term-dot" }), h("span", { class: "term-dot" }), h("span", { class: "term-dot" }), h("span", { class: "term-title" }, "~/code/my-app — npx -y agentsol@alpha learn")), h("pre", { class: "cli", attrs: { tabindex: "0", role: "region", "aria-label": "Example agentsol learn report in a terminal" } }, ...LEARN.map(runs))), h("figcaption", { class: "legend" }, h("span", { class: "legend-item" }, "Transcribed from a real run on three synthetic transcripts. Your numbers come from your own sessions.")));
+}
