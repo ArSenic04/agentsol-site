@@ -22,7 +22,7 @@ export const CLIENTS = [
     { id: "gemini", name: "Gemini CLI", where: "Run once in any terminal:", lines: [`gemini mcp add -s user agentsol npx ${PKG.join(" ")}`], note: "Gemini CLI loads MCP servers only in folders you trust. If agentsol shows as disabled, trust the folder when Gemini asks." },
     { id: "vscode", name: "VS Code", where: "Run once (GitHub Copilot agent mode reads it):", lines: [`code --add-mcp '{"name":"agentsol","command":"npx","args":[${PKG.map((a) => `"${a}"`).join(",")}]}'`] },
     { id: "cursor", name: "Cursor", where: "Add to ~/.cursor/mcp.json:", wrap: false, lines: JSON_CONFIG },
-    { id: "claude-desktop", name: "Claude Desktop", where: "Settings → Developer → Edit Config, then add:", wrap: false, lines: JSON_CONFIG, note: "Desktop apps may not see your shell PATH. If it fails to start, replace \"npx\" with the output of: which npx" },
+    { id: "claude-desktop", name: "Claude Desktop", where: "Settings → Developer → Edit Config, then add:", wrap: false, lines: JSON_CONFIG, note: "Agentsol is not in Claude's connector directory; this config is how you add it. Quit and reopen the app after saving. On Mac and Linux the app does not see your terminal's PATH, so npx from nvm, Homebrew or ~/.local/bin fails to start: run npx -y agentsol@alpha connect claude-desktop, which prints this config with the full npx path for your machine." },
     { id: "windsurf", name: "Windsurf", where: "Add to ~/.codeium/windsurf/mcp_config.json:", wrap: false, lines: JSON_CONFIG },
 ];
 /** Accessible tabs: one panel per client, arrow keys move between tabs. */
