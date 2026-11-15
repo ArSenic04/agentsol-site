@@ -21,10 +21,11 @@
 
 ## MCP tools
 
-projects_list, workspace_status, sources_freshness, sources_scan, sources_list, source_read, scope_resolve, checks_run, findings_list, findings_submit, change_propose, changes_list, change_status, sessions_list, session_review, session_grade, setup_audit, inspect, lessons_list
+projects_list, workspace_status, sources_freshness, sources_scan, sources_list, source_read, scope_resolve, checks_run, findings_list, findings_submit, change_propose, changes_list, change_status, sessions_list, session_review, session_grade, setup_audit, inspect, lessons_list, project_briefing
 
 ## Workflow for agents
 
+0. Starting work in a project? Call project_briefing with path set to your working folder and follow it: rules from mistakes agents repeated there, out-of-date instruction lines with what to do instead, and commands to ask the user about. Read-only.
 1. projects_list, then sources_scan and findings_list. Structural findings are facts.
 2. source_read for numbered, masked lines and the current versionId.
 3. findings_submit for POSSIBLE issues, always with exact quoted evidence.
