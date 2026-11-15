@@ -173,6 +173,7 @@ nav { margin-left: auto; }
 .section-head p { color: var(--ink-2); font-size: 1.08rem; }
 .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; list-style: none; margin: 0; padding: 0; }
 .cards-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.cards-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .card { position: relative; background: linear-gradient(180deg, var(--card-2), var(--card)); border: 1px solid var(--rule); border-radius: var(--radius); padding: 1.35rem 1.35rem 1.2rem; min-width: 0; }
 .card:hover { border-color: var(--rule-2); }
 .card h3 { margin-top: 0.15rem; }
@@ -387,7 +388,7 @@ input { min-width: min(22rem, 100%); font-family: var(--mono); font-size: 0.9rem
   .guard { grid-template-columns: 1fr; }
 }
 @media (max-width: 40rem) {
-  .two-col, .cards, .cards-4 { grid-template-columns: 1fr; }
+  .two-col, .cards, .cards-4, .cards-2 { grid-template-columns: 1fr; }
   .tag { display: none; }
   .tab { padding: 0.75rem 0.6rem; }
   nav { margin-left: auto; }
