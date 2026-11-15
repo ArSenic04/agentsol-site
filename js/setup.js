@@ -84,7 +84,7 @@ export const SKILL_MD = [
     "",
     "## Before you start work in a project",
     "",
-    "Call project_briefing with path set to the folder you work in (leave it out to use the folder the server started in), and follow what it returns. It lists rules from mistakes agents already repeated there, instruction lines that are out of date with what to do instead, and commands to ask the user about first. Before a build, test, install or deploy command, call command_check and use its instead command when the verdict is change; ask the user when it is ask.",
+    "Call project_briefing with path set to the folder you work in (it can be left out when the server started in the project, as in Claude Code, Codex and Gemini CLI), and follow what it returns. It lists rules from mistakes agents already repeated there, instruction lines that are out of date with what to do instead, and commands to ask the user about first. Before a build, test, install or deploy command, call command_check and use its instead command when the verdict is change; ask the user when it is ask.",
     "",
     "## Learn from repeated mistakes",
     "",
