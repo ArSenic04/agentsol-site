@@ -102,7 +102,7 @@ const lrow = (...parts) => [["", "  │ "], ...parts, ["", `${" ".repeat(Math.ma
 const lend = [["", `  ╰${"─".repeat(BOX)}╯`]];
 /** `agentsol learn` on three synthetic Claude Code and Codex transcripts, transcribed from a real run. */
 const LEARN = [
-    [["sun", "◉ "], ["bold", "agentsol learn  "], ["muted", "my-app · since 10/15/2026 · 3 sessions read"]],
+    [["sun", "◉ "], ["bold", "agentsol learn  "], ["muted", "my-app · since 5/19/2026 · 3 sessions read"]],
     [],
     ltop("What repeated mistakes cost"),
     lrow(["muted", "Time lost     "], ["bold", "24m"], ["muted", " of 29m active agent time (82%)"]),
